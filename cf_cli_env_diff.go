@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"strings"
 
+	"github.com/aryann/difflib"
 	"github.com/cloudfoundry/cli/plugin"
 )
 
@@ -26,16 +27,28 @@ func main() {
 }
 
 func (c *EnvDiff) Run(cliConnection plugin.CliConnection, args []string) {
-	app1output, app1err := cliConnection.CliCommandWithoutTerminalOutput("env", args[1])
-	app2output, app2err := cliConnection.CliCommandWithoutTerminalOutput("env", args[2])
+	app1Output, app1err := cliConnection.CliCommandWithoutTerminalOutput("env", args[1])
+	app2Output, app2err := cliConnection.CliCommandWithoutTerminalOutput("env", args[2])
+	app1OutputStr := strings.Join(app1Output, "\n")
+	app2OutputStr := strings.Join(app2Output, "\n")
 
 	if app1err != nil || app2err != nil {
 		fmt.Println("There were errors:")
 		if app1err != nil {
-			fmt.Println(strings.Join(app1output, "\n"))
+			fmt.Println(app1OutputStr)
 		}
 		if app2err != nil {
-			fmt.Println(strings.Join(app2output, "\n"))
+			fmt.Println(app2OutputStr)
+		}
+	} else {
+		if app1OutputStr == app2OutputStr {
+			fmt.Println("Environment variables are identical")
+		} else {
+			fmt.Println("Environment variable differences:")
+			diffs := difflib.Diff(app1Output, app2Output)
+			for _, diff := range diffs {
+				fmt.Println(diff.String())
+			}
 		}
 	}
 }
