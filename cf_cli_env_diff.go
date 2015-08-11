@@ -19,6 +19,11 @@ func (c *EnvDiff) GetMetadata() plugin.PluginMetadata {
 				HelpText: "Shows diff in environment variables between two apps",
 			},
 		},
+		Version: plugin.VersionType{
+			Major: 0,
+			Minor: 0,
+			Build: 1,
+		},
 	}
 }
 
