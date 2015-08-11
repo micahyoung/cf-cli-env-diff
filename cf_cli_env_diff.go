@@ -34,8 +34,8 @@ func main() {
 func (c *EnvDiff) Run(cliConnection plugin.CliConnection, args []string) {
 	app1Output, app1err := cliConnection.CliCommandWithoutTerminalOutput("env", args[1])
 	app2Output, app2err := cliConnection.CliCommandWithoutTerminalOutput("env", args[2])
-	app1OutputStr := strings.Join(app1Output, "\n")
-	app2OutputStr := strings.Join(app2Output, "\n")
+	app1OutputStr := strings.Join(app1Output, "")
+	app2OutputStr := strings.Join(app2Output, "")
 
 	if app1err != nil || app2err != nil {
 		fmt.Println("There were errors:")
@@ -52,7 +52,7 @@ func (c *EnvDiff) Run(cliConnection plugin.CliConnection, args []string) {
 			fmt.Println("Environment variable differences:")
 			diffs := difflib.Diff(app1Output, app2Output)
 			for _, diff := range diffs {
-				fmt.Println(diff.String())
+				fmt.Print(diff.String())
 			}
 		}
 	}
