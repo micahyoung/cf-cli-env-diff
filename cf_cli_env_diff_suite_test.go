@@ -8,10 +8,10 @@ import (
 	"testing"
 )
 
-func TestMain(t *testing.T) {
+func TestCfCliEnvDiff(t *testing.T) {
 	RegisterFailHandler(Fail)
 
 	plugin_builder.BuildTestBinary(".", "cf_cli_env_diff")
 
-	RunSpecs(t, "Main Suite")
+	RunSpecs(t, "CfCliEnvDiff Suite")
 }
