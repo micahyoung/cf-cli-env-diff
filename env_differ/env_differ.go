@@ -15,7 +15,7 @@ type EnvDiffer struct {
 	diffStrings []string
 }
 
-func NewEnvDiffer(cliConnection plugin.CliConnection, args []string) *EnvDiffer {
+func New(cliConnection plugin.CliConnection, args []string) *EnvDiffer {
 	e := new(EnvDiffer)
 	e.connection = cliConnection
 	e.app1Name = args[1]

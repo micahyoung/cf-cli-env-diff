@@ -4,7 +4,7 @@ import (
 	"errors"
 
 	"github.com/cloudfoundry/cli/plugin/fakes"
-	. "github.com/micahyoung/cf_cli_env_diff/env_differ"
+	"github.com/micahyoung/cf_cli_env_diff/env_differ"
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
 )
@@ -12,11 +12,11 @@ import (
 var _ = Describe("EnvDiffer", func() {
 	Describe(".Errors", func() {
 		var fakeCliConnection *fakes.FakeCliConnection
-		var envDiffer *EnvDiffer
+		var envDiffer *env_differ.EnvDiffer
 
 		BeforeEach(func() {
 			fakeCliConnection = &fakes.FakeCliConnection{}
-			envDiffer = NewEnvDiffer(fakeCliConnection, []string{"env-diff", "app1", "app2"})
+			envDiffer = env_differ.New(fakeCliConnection, []string{"env-diff", "app1", "app2"})
 		})
 
 		Describe("when there are no apps", func() {

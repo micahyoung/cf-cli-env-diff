@@ -32,7 +32,7 @@ func main() {
 }
 
 func (c *EnvDiff) Run(cliConnection plugin.CliConnection, args []string) {
-	envDiffer := env_differ.NewEnvDiffer(cliConnection, args)
+	envDiffer := env_differ.New(cliConnection, args)
 
 	if len(envDiffer.Errors()) > 0 {
 		fmt.Println("There were errors:")
